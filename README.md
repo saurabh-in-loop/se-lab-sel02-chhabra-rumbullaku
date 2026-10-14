@@ -6,10 +6,10 @@ Software Engineering Lab · HAW Hamburg · Winter 2026/27
 
 | Name | GitHub handle |
 |---|---|
-|  |  |
-|  |  |
+| Saurabh Chhabra | saurabh-in-loop |
+| Luka Rumbullaku |  |
 
-**Group:** SEL/0_
+**Group:** SEL/02
 **Partner team:** <!-- link to your partner team's repository -->
 
 ## Where things are
