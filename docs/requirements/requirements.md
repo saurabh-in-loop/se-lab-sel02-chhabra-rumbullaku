@@ -19,8 +19,6 @@ Atomic · unambiguous · free of design decisions · traceable · verifiable.
 Every FR: at least one acceptance criterion (Given / When / Then), at least one NOT the happy path.
 -->
 
-## 4. Functional requirements
-
 Each functional requirement describes one specific system capability. The acceptance criteria use Given/When/Then scenarios to verify the expected behaviour, including situations where the operation cannot be completed.
 
 | ID | Requirement | Source | Acceptance criteria |
@@ -55,8 +53,6 @@ Required: at least one NFR each on personal data, fairness and accessibility
 (category "Responsibility to users and community").
 -->
 
-## 5. Non-functional requirements
-
 | ID | Category | Requirement | Metric | Target | How it is measured | Source |
 |---|---|---|---|---|---|---|
 | NFR-01 | Availability | The booking platform shall remain available to users, except during permitted planned maintenance. | Monthly availability percentage | At least 99.5% per month | Monitor service uptime and calculate monthly availability, excluding agreed maintenance windows. | Stakeholder session 1 – CEO |
@@ -66,8 +62,6 @@ Required: at least one NFR each on personal data, fairness and accessibility
 | NFR-05 | Privacy and data retention | The system shall retain user data only for the specified retention period. Birthday information shall only be collected or used with explicit user consent. | Data retention period and consent compliance | User data retention: maximum 2 years. Explicit consent required for birthday information. | Review data-retention settings and verify that birthday information is processed only when consent is recorded. | Stakeholder session 1 – CEO |
 | NFR-06 | Fairness | The system shall process competing booking requests fairly, giving priority to the first request received by the system. | Ordering of competing booking requests | Requests shall be processed in order of server receipt. | Test concurrent booking requests and verify their processing order using server timestamps. | Stakeholder session 1 – CEO |
 | NFR-07 | Privacy and data protection | The system shall protect users' personal data against unauthorised access, disclosure, modification and loss. Access to personal information shall be restricted to authorised users and purposes. | Access-control compliance and number of unauthorised access incidents | Only authorised users can access personal data; no unauthorised access is permitted. | Review access permissions, perform security tests and monitor access logs for unauthorised activity. | Stakeholder session 1 – CEO; privacy and data-protection requirement |
-
-## 6. Traceability matrix
 
 ## 6. Traceability matrix
 
