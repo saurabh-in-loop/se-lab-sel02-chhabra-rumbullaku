@@ -2,83 +2,98 @@
 
 ## 1. Introduction
 
-The purpose of this document is to define the requirements for the Kojenwerk hotel booking platform. The platform allows guests to search for available accommodation, book rooms, manage their bookings and make payments online. It also provides hotel owners with functions to manage room prices and respond to guest-related matters. This document describes the functional and non-functional requirements agreed upon during the stakeholder session.
+The Kojenwerk platform lets guests find available rooms, pay for bookings, and manage their reservations. Hotel owners can manage their accommodation and deal with guest-related matters. These requirements are based on the stakeholder decisions in [decision-log.md](decision-log.md).
 
-## 2. Stakeholders and users
+## 2. Stakeholders and actors
 
-The main users of the platform are guests and hotel owners. Guests can register, search for rooms, make payments, book accommodation, modify or cancel bookings, submit complaints and write reviews. Hotel owners can manage room prices, respond to complaints and manage their accommodation information. The CEO represents the business stakeholder and defines the platform's policies, including booking, payment, cancellation, accessibility and availability requirements. The platform also interacts with external payment services.
+- **Guest:** registers, searches for rooms, books, modifies or cancels a reservation, and can submit complaints or reports.
+- **Hotel Owner:** maintains room information and prices, handles eligible cancellations and responds to complaints.
+- **Payment Provider:** handles card and PayPal payments, including payment adjustments and refunds where needed.
+- **CEO:** business stakeholder who defines the booking and platform rules.
 
-## 3. Use cases
+For the three detailed scenarios, see [use-cases.md](use-cases.md). The three described use cases are **UC-01 Book a Room**, **UC-02 Modify a Booking** and **UC-03 Cancel a Booking**.
 
-See [use cases](use-cases.md) and the [decision log](decision-log.md).
+## 3. Functional requirements
 
-## 4. Functional requirements
-
-<!--
-Atomic · unambiguous · free of design decisions · traceable · verifiable.
-Every FR: at least one acceptance criterion (Given / When / Then), at least one NOT the happy path.
--->
-
-Each functional requirement describes one specific system capability. The acceptance criteria use Given/When/Then scenarios to verify the expected behaviour, including situations where the operation cannot be completed.
+Acceptance criteria use **Given / When / Then**. Negative cases are included to make it clear when an action must be rejected or handled differently.
 
 | ID | Requirement | Source | Acceptance criteria |
 |---|---|---|---|
-| FR-01 | The system shall require guests to register before making a booking. | Stakeholder Session 1 – CEO, mandatory registration (D-01). | **AC-01:** Given a user is not registered, when they attempt to book a room, then the system shall require them to register. **Negative:** Given a user has not completed registration, when they attempt to proceed with booking, then the system shall not create a booking. |
-| FR-02 | The system shall require a guest's first name, last name and email address during registration. | Stakeholder Session 1 – CEO, required guest data (D-02). | **AC-02:** Given a guest completes registration, when they submit all required details, then the system shall accept the registration. **Negative:** Given one of the required fields is missing, when the guest submits the form, then the system shall display a validation message and reject the incomplete submission. |
-| FR-03 | The system shall allow guests to provide a phone number as an optional registration detail. | Stakeholder Session 1 – CEO, optional phone number (D-02). | **AC-03:** Given a guest is registering, when they submit the form without a phone number, then the system shall allow registration if all mandatory fields are valid. |
-| FR-04 | The system shall request explicit consent before collecting or using a guest's birthday. | Stakeholder Session 1 – CEO, explicit birthday consent (D-02). | **AC-04:** Given a guest is asked to provide their birthday, when they give explicit consent, then the system may collect the birthday. **Negative:** Given the guest does not give consent, when they complete registration, then the system shall not require or collect the birthday. |
-| FR-05 | The system shall allow guests to search for rooms using accommodation search criteria and display matching available rooms. | Stakeholder Session 1 – CEO, guaranteed bookings and accessibility filters (D-03, D-08). | **AC-05:** Given rooms match the guest's search criteria and are available, when the guest searches, then the system shall display matching rooms. **Negative:** Given no available rooms match the criteria, when the guest searches, then the system shall inform the guest that no matching rooms are available. |
-| FR-06 | The system shall provide wheelchair-accessibility filters for room searches. | Stakeholder Session 1 – CEO, accessibility filters (D-08). | **AC-06:** Given a guest selects a wheelchair-accessibility filter, when they perform a search, then the system shall display rooms matching that accessibility filter. **Negative:** Given no matching accessible rooms are available, when the search is performed, then the system shall indicate that no matching rooms were found. |
-| FR-07 | The system shall display accommodation prices including applicable taxes. | Stakeholder Session 1 – CEO, prices including taxes (D-09). | **AC-07:** Given a guest views a room or booking price, when the price is displayed, then it shall include applicable taxes. |
-| FR-08 | The system shall hold a selected room for 30 minutes when the guest initiates payment by pressing the payment button. | Stakeholder Session 1 – CEO, temporary room hold (D-10). | **AC-08:** Given a guest selects an available room and presses the payment button, when the payment process starts, then the system shall hold the room for 30 minutes. **Negative:** Given the 30-minute hold expires without successful payment, when the hold expires, then the system shall release the room for other guests to book. |
-| FR-09 | The system shall confirm a booking immediately after successful payment. | Stakeholder Session 1 – CEO, instant confirmation after payment and no owner approval (D-04). | **AC-09:** Given a guest has a valid room hold, when the payment is successful, then the system shall confirm the booking and inform the guest. **Negative:** Given the payment fails, when the payment provider reports failure, then the system shall not confirm the booking. |
-| FR-10 | The system shall retain the guest's entered booking information for up to 30 minutes after a payment failure so that the guest does not need to enter it again. | Stakeholder Session 1 – CEO, saved data after payment failure (D-10). | **AC-10:** Given a guest's payment fails during the 30-minute hold, when the guest retries payment within that period, then the system shall retain the previously entered information. **Negative:** Given the 30-minute period has expired, when the guest returns to the payment process, then the system shall not treat the previous room hold as active. |
-| FR-11 | The system shall allow guests to modify an existing booking, subject to the applicable cancellation rules. | Stakeholder Session 1 – CEO, booking changes (D-11). | **AC-11:** Given a guest has an existing booking, when they request an allowed change to the number of guests, payment method or dates, then the system shall process the change according to the applicable booking and cancellation rules. **Negative:** Given a requested change cannot be accepted under those rules, when the guest submits it, then the system shall inform the guest and leave the booking unchanged. |
-| FR-12 | The system shall allow guests to cancel a booking and apply the cancellation charges according to the 48-hour cancellation policy. | Stakeholder Session 1 – CEO, cancellation policy (D-05). | **AC-12:** Given a guest cancels at least 48 hours before arrival, when the cancellation is processed, then the system shall provide a full refund. **Negative:** Given a guest cancels less than 48 hours before arrival, when the cancellation is processed, then the system shall charge the first night's cost. |
-| FR-13 | The system shall allow hotel owners to change room prices without changing the agreed price of bookings that have already been confirmed. | Stakeholder Session 1 – CEO, price changes (D-06). | **AC-13:** Given a guest has a confirmed booking, when the owner changes the room price, then the guest's confirmed booking price shall remain unchanged. |
-| FR-14 | The system shall allow guests to apply promotional codes during the booking process. | Stakeholder Session 1 – CEO, promotional codes (D-12). | **AC-14:** Given a guest enters a valid promotional code, when the code is applied, then the system shall apply the promotion according to its conditions. **Negative:** Given a promotional code is invalid or expired, when the guest applies it, then the system shall inform the guest and not apply the discount. |
-| FR-15 | The system shall allow guests to submit complaints through the user portal. | Stakeholder Session 1 – CEO, complaint submission (D-13). | **AC-15:** Given a guest is logged in, when they submit a complaint through the portal, then the system shall record the complaint. **Negative:** Given the complaint submission is incomplete, when the guest submits it, then the system shall identify the missing information and not accept the incomplete submission. |
-| FR-16 | The system shall provide hotel owners with the ability to respond to guest complaints within 14 days. | Stakeholder Session 1 – CEO, owner complaint response period (D-13). | **AC-16:** Given a complaint has been submitted, when the owner sends a response, then the system shall record the response. The response period shall be 14 days from complaint submission. |
-| FR-17 | The system shall allow guests to report suspected discrimination. | Stakeholder Session 1 – CEO, discrimination reporting (D-14). | **AC-17:** Given a guest experiences suspected discrimination, when they submit a report, then the system shall record the report for handling. |
-| FR-18 | The system shall inform guests when a booking cannot be completed because the system is unavailable or an error prevents completion. | Stakeholder Session 1 – CEO, failure notification (D-15). | **AC-18:** Given a guest attempts to complete a booking but the system cannot process it, when the failure is detected, then the system shall inform the guest that the booking was not completed. **Negative:** Given the system cannot confirm payment success, then it shall not display a successful booking confirmation. |
+| FR-01 | The platform shall require registration before a guest can book. | D-05 | **Given** a registered guest, **when** they start a booking, **then** they can proceed. **Negative:** Given an unregistered visitor, when they try to book, then registration is required before any booking can be created. |
+| FR-02 | Registration shall require a first name, last name and email address. | D-06 | **Given** all required details, **when** registration is submitted, **then** it is accepted. **Negative:** If one is missing, registration is rejected and the missing field is shown. |
+| FR-03 | Providing a phone number shall be optional. | D-06 | **Given** the required details are valid but no phone number is entered, **when** registration is submitted, **then** it succeeds. **Negative:** A missing phone number alone must not cause an error. |
+| FR-04 | Birthday information shall only be collected with explicit consent. | D-07 | **Given** explicit consent, **when** a birthday is supplied, **then** it may be recorded. **Negative:** Without consent, no birthday is collected and registration can still proceed. |
+| FR-05 | Guests shall be able to search available rooms by destination, dates and number of guests. | UC-01; D-01 | **Given** matching available rooms, **when** a search is made, **then** they are shown. **Negative:** If none match, the search reports no matching rooms. |
+| FR-06 | Room searches shall include a wheelchair-accessibility filter. | D-09 | **Given** a suitable accessible room, **when** the filter is selected, **then** it appears in the results. **Negative:** Rooms not meeting the filter are excluded. |
+| FR-07 | All displayed prices shall include applicable taxes. | D-17 | **Given** a taxable room price, **when** a total is displayed, **then** taxes are included. **Negative:** A price excluding applicable taxes must not be shown as the final payable amount. |
+| FR-08 | Pressing **Pay** for an available room shall start a temporary hold lasting 30 minutes. | D-21 | **Given** an available room, **when** the guest presses Pay, **then** a 30-minute hold is created. **Negative:** If the room is not available, no new hold is granted. |
+| FR-09 | A booking shall be confirmed immediately after successful payment while the room hold is valid, without owner approval. | D-02; D-04; D-21 | **Given** a valid hold and successful payment, **when** the payment result is received, **then** the booking is confirmed. **Negative:** Failed payment or an expired hold must not result in confirmation. |
+| FR-10 | Entered booking details shall be retained for 30 minutes after a payment failure. | D-27 | **Given** a failed payment, **when** the guest retries within 30 minutes, **then** the previously entered details are available. **Negative:** After that period, the system is not required to retain them. |
+| FR-11 | Guests shall be able to change booking dates or room type until 48 hours before check-in, subject to availability and the current price. | D-12; D-13 | **Given** a request 72 hours before check-in and an available replacement, **when** the guest accepts the current price, **then** the change is saved. **Negative:** A date or room-type change requested 24 hours before check-in is not accepted; the original booking remains. |
+| FR-12 | Guests shall be able to cancel their own confirmed bookings. | D-08 | **Given** a guest's confirmed booking, **when** they confirm cancellation, **then** its status changes to cancelled. **Negative:** A guest cannot cancel another guest's booking. |
+| FR-13 | Hotel owners shall be able to change the current selling prices of rooms they manage. | D-03 | **Given** an owner manages a room, **when** they save a new valid price, **then** the room's current price changes. **Negative:** An owner cannot edit a room belonging to another owner. |
+| FR-14 | Guests shall be able to apply promotional codes during booking. | D-23 | **Given** a valid code, **when** it is applied, **then** the correct discount is included in the price. **Negative:** Invalid or expired codes do not change the price. |
+| FR-15 | Guests shall be able to submit complaints through the portal. | D-24 | **Given** a completed complaint, **when** a guest submits it, **then** it is recorded. **Negative:** An incomplete complaint is not accepted and missing information is identified. |
+| FR-16 | Hotel owners shall be able to submit a response to a complaint within 14 days. | D-24 | **Given** a complaint submitted 10 days earlier, **when** the owner responds, **then** the response is recorded within the deadline. **Negative:** A response submitted after day 14 is recorded as late, not as an on-time reply. |
+| FR-17 | Guests shall be able to submit discrimination reports. | D-28 | **Given** a completed report, **when** it is submitted, **then** it is recorded. **Negative:** If required information is missing, the system asks for it instead of accepting an incomplete report. |
+| FR-18 | Guests shall be informed if a booking cannot be completed due to a system or processing failure. | D-16 | **Given** a booking failure, **when** the failure is detected, **then** the guest is told the booking was not completed. **Negative:** If payment success has not been verified, the system must not show a confirmed booking. |
+| FR-19 | The system shall calculate guest cancellation refunds using the 48-hour rule. | D-08; D-20 | **Given** cancellation 72 hours before arrival, **when** the refund is calculated, **then** it equals the full payment. **Negative:** For cancellation 24 hours before arrival, the first night's charge is retained and only the remaining amount, if any, is refundable. |
+| FR-20 | A confirmed booking shall keep its agreed price when the owner later changes room prices. | D-03 | **Given** a confirmed booking, **when** the room's current price changes, **then** the booking price is unchanged. **Negative:** The updated room price must not replace the price already agreed for that booking. |
+| FR-21 | Hotel owners shall be allowed to cancel directly only at least 14 days before arrival and with a valid reason. | D-11 | **Given** a valid reason 15 days before arrival, **when** the owner cancels, **then** the cancellation is allowed. **Negative:** If fewer than 14 days remain, direct cancellation is blocked and the owner is told to contact support. |
+| FR-22 | Booking payment shall support card and PayPal, but not payment at the hotel. | D-04 | **Given** a successful card or PayPal payment, **when** the result is received, **then** it can complete the booking. **Negative:** Paying at the hotel is not offered as a way to confirm a booking. |
+| FR-23 | A billing address shall be requested only when a guest asks for an invoice. | D-06 | **Given** an invoice request, **when** invoice details are collected, **then** a billing address may be requested. **Negative:** Without an invoice request, no billing address is required. |
+| FR-24 | Marketing emails shall be sent only to guests who have explicitly agreed to receive them. | D-07 | **Given** recorded marketing consent, **when** a marketing email is prepared, **then** sending is allowed. **Negative:** Without consent, the email is not sent. |
+| FR-25 | A room hold shall be released after 30 minutes if payment has not succeeded. | D-22 | **Given** an unpaid hold, **when** 30 minutes have passed, **then** the room becomes available to other guests. **Negative:** A hold that is still valid must not be released early just because another guest requests the room. |
+| FR-26 | The system shall prevent overlapping confirmed bookings for the same room. | D-01; D-26 | **Given** a room with an existing confirmed booking, **when** another guest requests overlapping dates, **then** the second booking is refused. **Negative:** Competing requests must not both produce overlapping confirmed bookings. |
+| FR-27 | Eligible owner-initiated cancellations shall give the guest a full refund. | D-11 | **Given** a valid owner cancellation, **when** it is processed, **then** a refund for the full amount is requested through the payment provider. **Negative:** The guest must not be charged a cancellation fee for that owner cancellation. |
+| FR-28 | The guest shall be informed automatically when an owner cancels their booking. | D-11 | **Given** an eligible owner cancellation, **when** it is recorded, **then** the guest receives an automatic notification. **Negative:** The system must not leave the guest uninformed while treating the booking as cancelled. |
+| FR-29 | Registration and booking shall not request nationality or copies of identity documents. | D-06 | **Given** a guest registers or books, **when** personal details are requested, **then** nationality and ID copies are not requested. **Negative:** Missing nationality or ID copies must never block registration or booking. |
+| FR-30 | Guests shall be able to request a payment-method change under the same booking-change deadline. | D-12; D-13 | **Given** a change request at least 48 hours before check-in, **when** the guest selects another supported payment method, **then** the request may proceed under the modification rules. **Negative:** Given a request less than 48 hours before check-in, when the guest requests the change, then it is rejected and the existing booking is preserved. |
 
+**Open detail:** D-12/D-13 confirm that payment-method changes are subject to the same rules, but do not describe exactly how an already-paid booking is adjusted. The original notes also mentioned changing the guest count; this still needs confirmation. For FR-16, recording a reply as late is a proposed way to check the 14-day deadline; the stakeholders did not decide on a penalty or escalation process.
 
+## 4. Non-functional requirements
 
-## 5. Non-functional requirements
-
-<!--
-No metric, no target or no measurement method → not a requirement.
-Every NFR names its source: a decision (D-__), the domain brief, or a regulation.
-Required: at least one NFR each on personal data, fairness and accessibility
-(category "Responsibility to users and community").
--->
-
-| ID | Category | Requirement | Metric | Target | How it is measured | Source |
+| ID | Category | Requirement | Metric | Target | Verification | Source |
 |---|---|---|---|---|---|---|
-| NFR-01 | Availability | The booking platform shall remain available to users, except during permitted planned maintenance. | Monthly availability percentage | At least 99.5% per month | Monitor service uptime and calculate monthly availability, excluding agreed maintenance windows. | Stakeholder session 1 – CEO |
-| NFR-02 | Performance | The system shall display search results quickly after a user submits a room search. | Page-load time for search results | 90% of searches shall load within 1 second. | Measure search-result page-load times and calculate the percentage completed within one second. | Stakeholder session 1 – CEO |
-| NFR-03 | Capacity and scalability | The platform shall support simultaneous users during peak usage and accommodate expected user growth. | Number of concurrent users supported | At least 3,000 concurrent users; the system should accommodate expected growth from 10,000 users to approximately 20,000 users next year. | Conduct load and stress tests with the expected number of concurrent users. | Stakeholder session 1 – CEO |
-| NFR-04 | Accessibility | The platform shall be accessible to users with disabilities, including users who rely on screen readers and keyboard navigation. | WCAG conformance and accessibility test results | WCAG 2.1 Level AA | Perform accessibility audits and test keyboard navigation and screen-reader compatibility. | Stakeholder session 1 – CEO |
-| NFR-05 | Privacy and data retention | The system shall retain user data only for the specified retention period. Birthday information shall only be collected or used with explicit user consent. | Data retention period and consent compliance | User data retention: maximum 2 years. Explicit consent required for birthday information. | Review data-retention settings and verify that birthday information is processed only when consent is recorded. | Stakeholder session 1 – CEO |
-| NFR-06 | Fairness | The system shall process competing booking requests fairly, giving priority to the first request received by the system. | Ordering of competing booking requests | Requests shall be processed in order of server receipt. | Test concurrent booking requests and verify their processing order using server timestamps. | Stakeholder session 1 – CEO |
-| NFR-07 | Privacy and data protection | The system shall protect users' personal data against unauthorised access, disclosure, modification and loss. Access to personal information shall be restricted to authorised users and purposes. | Access-control compliance and number of unauthorised access incidents | Only authorised users can access personal data; no unauthorised access is permitted. | Review access permissions, perform security tests and monitor access logs for unauthorised activity. | Stakeholder session 1 – CEO; privacy and data-protection requirement |
+| NFR-01 | Availability | The platform shall meet the agreed monthly uptime and maintenance rules. | Monthly availability; maintenance times | At least 99.5% per month; planned maintenance only Tuesday 02:00–04:00 | Uptime monitoring and maintenance logs | D-14; D-15 |
+| NFR-02 | Performance | Search results shall load within the agreed time target. | Percentage of searches loaded within 1 second | At least 90% | Performance tests of searches | Lab 1 requirement; confirm the original decision source |
+| NFR-03 | Capacity and scalability | The platform shall support peak usage and the expected user growth. | Concurrent users; total users | 3,000 concurrent users; about 3,000 users currently, increasing to about 10,000 in 1–2 years | Load test for 3,000 concurrent users; capacity check for 10,000 users | D-18; D-19 |
+| NFR-04 | Accessibility | The platform shall support assistive technologies and keyboard use. | Accessibility compliance | WCAG 2.1 AA | Accessibility audit, keyboard tests, screen-reader tests | D-10 |
+| NFR-05 | Privacy and retention | Accounts without bookings shall be deleted after 2 years; booked guests' personal data shall be retained for 3 years. | Age and booking history of stored records | 2 years without booking; 3 years for booked guests | Check retention rules against both account categories | D-29 |
+| NFR-06 | Fairness | When guests compete for a room, requests shall be prioritized by the order received by the platform. | Order of requests | First received has priority | Concurrent request tests using server timestamps | D-26 |
+| NFR-07 | Data protection | Personal data shall only be accessible to authorized users for authorized purposes. | Unauthorized access in test cases | No successful unauthorized access | Access-control and security tests | Lab 1 privacy requirement; confirm the original decision source |
 
-## 6. Traceability matrix
+NFR-05 states the agreed retention periods; the event from which each period starts still needs clarification. The treatment of planned maintenance when calculating NFR-01's uptime is also not explicit in the decision log.
 
-| Use case | FR-01 | FR-02 | FR-03 | FR-04 | FR-05 | FR-06 | FR-07 | FR-08 | FR-09 | FR-10 | FR-11 | FR-12 | FR-13 | FR-14 | FR-15 | FR-16 | FR-17 | FR-18 |
-|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
-| UC-01 Book a Room | X | X | X | X | X | X | X | X | X | X | | | | X | | | | X |
-| UC-02 Modify a Booking | | | | | | X | | | | | X | X | | | | | | |
-| UC-03 Cancel a Booking | | | | | | X | | | | | | X | X | | | | | |
+## 5. Traceability
 
-**Gaps found and how we addressed them:**
+The direction in this table is **UC → FR**: it shows which requirements appear in each documented use case. Looking at the same mapping from **FR → UC** also identifies which requirements still have no detailed scenario. Registration requirements are listed separately as prerequisites, not as steps performed inside a booking.
 
-- FR-15, FR-16 and FR-17 are not covered by the three selected use cases. Additional use cases for submitting complaints, submitting reviews and reporting discrimination may be required.
-- FR-14 (wheelchair accessibility filter) is included in the booking requirements but is not yet explicitly described in the UC-01 scenario. The search scenario should be extended to include this filter.
-- FR-18 (preserving the confirmed booking price) should be added to the booking confirmation scenario and considered when modifying a booking.
-- Owner-initiated cancellation is included as an alternate flow in UC-03, but its detailed refund rules still need clarification.
+| Use case | Requirements addressed |
+|---|---|
+| **UC-01 — Book a Room** | FR-05, FR-06, FR-07, FR-08, FR-09, FR-10, FR-14, FR-18, FR-20, FR-22, FR-23, FR-25, FR-26, FR-29 |
+| **UC-02 — Modify a Booking** | FR-07, FR-11, FR-20, FR-26, FR-30 |
+| **UC-03 — Cancel a Booking** | FR-12, FR-19, FR-21, FR-27, FR-28 |
+| **Registration prerequisite to UC-01** | FR-01, FR-02, FR-03, FR-04 |
+| **Owner room-price management (diagram only)** | FR-13; no separate detailed use-case description yet |
 
+The remaining uncovered requirements in the three written scenarios are **FR-15, FR-16, FR-17 and FR-24**. Complaint handling, discrimination reports and marketing consent need separate use-case coverage if required by the final scope. The owner availability-management use case and guest reviews should also be checked against the agreed scope; we have not treated them as covered just because they appear in general descriptions.
 
-## 7. Decision log
+### Corrections and outstanding gaps
 
-See [decision log](decision-log.md).
+| Item | Status |
+|---|---|
+| Old decision numbers attached to functional requirements | Corrected using D-01–D-29. |
+| FR-06 and FR-12 wrongly linked to UC-02 | Corrected. Accessibility search belongs to UC-01; cancellation belongs to UC-03. |
+| Gap notes describing FR-14 as accessibility and FR-18 as price protection | Corrected. These are FR-06 and FR-20, respectively. |
+| Two behaviors combined in the old FR-12 and FR-13 | Split into FR-12/FR-19 (cancel/refund) and FR-13/FR-20 (price change/price protection). |
+| Hold expiry and prevention of double-booking | Made explicit as FR-25 and FR-26. |
+| Owner cancellation obligations and invoice/privacy rules | Separate requirements added as FR-27–FR-29. |
+| Payment-method changes | Covered by FR-30; the exact payment adjustment procedure still needs clarification. |
+| Complaints, discrimination, marketing, reviews and owner availability management | Not covered by the three detailed use cases; additional scope work is still required. |
+
+## 6. Related files
+
+- [Decision log](decision-log.md)
+- [Use cases](use-cases.md)
