@@ -70,13 +70,13 @@ NFR-05 states the agreed retention periods; the event from which each period sta
 
 The direction in this table is **UC → FR**: it shows which requirements appear in each documented use case. Looking at the same mapping from **FR → UC** also identifies which requirements still have no detailed scenario. Registration requirements are listed separately as prerequisites, not as steps performed inside a booking.
 
-| Use case | Requirements addressed |
-|---|---|
-| **UC-01 — Book a Room** | FR-05, FR-06, FR-07, FR-08, FR-09, FR-10, FR-14, FR-18, FR-20, FR-22, FR-23, FR-25, FR-26, FR-29 |
-| **UC-02 — Modify a Booking** | FR-07, FR-11, FR-20, FR-26, FR-30 |
-| **UC-03 — Cancel a Booking** | FR-12, FR-19, FR-21, FR-27, FR-28 |
-| **Registration prerequisite to UC-01** | FR-01, FR-02, FR-03, FR-04 |
-| **Owner room-price management (diagram only)** | FR-13; no separate detailed use-case description yet |
+| Use case | FR-01 | FR-02 | FR-03 | FR-04 | FR-05 | FR-06 | FR-07 | FR-08 | FR-09 | FR-10 | FR-11 | FR-12 | FR-13 | FR-14 | FR-15 | FR-16 | FR-17 | FR-18 | FR-19 | FR-20 | FR-21 | FR-22 | FR-23 | FR-24 | FR-25 | FR-26 | FR-27 | FR-28 | FR-29 | FR-30 |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| UC-01 — Book a Room |  |  |  |  | X | X | X | X | X | X |  |  |  | X |  |  |  | X |  | X |  | X | X |  | X | X |  |  | X |  |
+| UC-02 — Modify a Booking |  |  |  |  |  |  | X |  |  |  | X |  |  |  |  |  |  |  |  | X |  |  |  |  |  | X |  |  |  | X |
+| UC-03 — Cancel a Booking |  |  |  |  |  |  |  |  |  |  |  | X |  |  |  |  |  |  | X |  | X |  |  |  |  |  | X | X |  |  |
+| Registration prerequisite to UC-01 | X | X | X | X |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Owner room-price management (diagram only) |  |  |  |  |  |  |  |  |  |  |  |  | X |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |
 
 The remaining uncovered requirements in the three written scenarios are **FR-15, FR-16, FR-17 and FR-24**. Complaint handling, discrimination reports and marketing consent need separate use-case coverage if required by the final scope. The owner availability-management use case and guest reviews should also be checked against the agreed scope; we have not treated them as covered just because they appear in general descriptions.
 
