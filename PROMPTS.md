@@ -29,18 +29,6 @@ Copy this block for each entry:
 
 ---
 
-### 2026-11-07 – ChatGPT – Reference Application Analysis
-
-**Goal:** Analyse the provided StayHub reference application and compare it with the stakeholder requirements.
-
-**Prompt:**
-> Analyse the provided reference application source code. Identify which stakeholder requirements are implemented, ignored or extended with additional features. Compare the implementation with the CEO's decisions.
-
-**Kept / changed / rejected, and why:**
-> Used the source-code analysis to identify implemented and missing features. Checked the findings against the actual application instead of making assumptions based only on its interface.
-
----
-
 ### 2026-11-07 – ChatGPT – Stakeholder Conflict Analysis
 
 **Goal:** Analyse conflicts between the two stakeholder emails and document how the reference application handles them.
@@ -52,6 +40,8 @@ Copy this block for each entry:
 > Used the comparison to document conflicts involving overbooking, booking confirmation, cancellation, pricing, payment and personal data. Prioritised the final decisions made by the CEO.
 
 ## Lab 2
+
+
 
 ## Lab 3
 
