@@ -89,4 +89,13 @@ Save the diagram as docs/design/domain-model.png.
 
 ## Peer Review
 
-We presented our domain model and sequence diagram to our partner team during Lab 2. No issues or suggestions for improvement were raised by the reviewing team. Therefore, no changes were necessary after the peer review.
+We presented our domain model and sequence diagram to our partner team during Lab 2. No issues or suggestions for improvement were raised by the reviewing team.
+
+While developing the class diagram, we noticed that some of the multiplicities in the domain model could be improved. We decided to refine these relationships in the class diagram:
+
+- A room can have multiple booking drafts instead of being limited to one.
+- A booking draft can exist without an active room hold.
+- A confirmed booking must be associated with a successful payment.
+- Search criteria can match multiple rooms.
+
+These refinements were identified during the detailed design phase rather than during the peer review. The original sequence diagram was retained and the original domain model diagram was changed to align with the class diagram.
