@@ -42,27 +42,7 @@ For example, `Booking.java` at line 143 contains `isCancellable()`, which checks
 
 ## 3. Its domain model as it actually is
 
-The following domain model is based on the associations and attributes found in the reference application's Java classes.
-
-```mermaid
-classDiagram
-    User "1" -- "0..*" Hotel : owns
-    Hotel "1" -- "0..*" Room : contains
-    User "1" -- "0..*" Booking : places
-    Room "1" -- "0..*" Booking : reserved by
-    Hotel "1" -- "0..*" Booking : receives
-    Booking "1" -- "0..*" Payment : payments
-    Booking "1" -- "0..*" BookingEvent : records
-    Booking "1" *-- "0..*" NightlyRate : nightly prices
-    Booking "1" -- "0..1" Review : reviewed by
-    Hotel "1" -- "0..*" Review : receives
-    User "1" -- "0..*" Review : writes
-    Room "1" -- "0..*" PriceRule : pricing rules
-    Hotel "0..1" -- "0..*" Coupon : offers
-    User "0..1" -- "0..*" Coupon : owns
-    User "1" -- "0..*" Notification : receives
-    User "0..*" -- "0..*" Hotel : favourites
-```
+![StayHub Reference Application Domain Model](reference-domain-model.png)
 
 ### Comparison with our domain model
 
