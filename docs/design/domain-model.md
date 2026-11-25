@@ -33,13 +33,13 @@ Save the diagram as docs/design/domain-model.png.
 | Hotel | Room | `Hotel (1) — Room (1..*)` | A hotel contains one or more rooms; each room belongs to one hotel. |
 | RoomType | Room | `RoomType (1) — Room (0..*)` | A room has one type; a type may describe many rooms. |
 | Guest | SearchCriteria | `Guest (1) — SearchCriteria (0..*)` | A guest may submit multiple searches; each search belongs to one guest. |
-| SearchCriteria | Room | `SearchCriteria (0..*) — Room (not labelled)` | Search criteria are used to find matching rooms. The diagram omits the multiplicity at the Room end. |
+| SearchCriteria | Room | `SearchCriteria (0..*) — Room (0..*)` | Search criteria can match multiple rooms, and a room can match multiple searches. |
 | Guest | BookingDraft | `Guest (1) — BookingDraft (0..*)` | A guest may prepare several booking drafts. |
-| Room | BookingDraft | `Room (1) — BookingDraft (1)` | A draft selects one room. The diagram also implies only one draft per room; see review notes. |
-| BookingDraft | RoomHold | `BookingDraft (0..1) — RoomHold (1)` | A draft may obtain a hold, but the multiplicities as placed do not express that correctly; see review notes. |
+| Room | BookingDraft | `Room (1) — BookingDraft (0..*)` | A room can be selected in multiple booking drafts; each draft selects one room. |
+| BookingDraft | RoomHold | `BookingDraft (1) — RoomHold (0..1)` | A draft may obtain one room hold; each hold belongs to one draft. |
 | Room | RoomHold | `Room (1) — RoomHold (0..*)` | A room may have holds over time; each hold concerns one room. |
 | RoomHold | Payment | `RoomHold (1) — Payment (0..*)` | A valid hold can be used for multiple payment attempts; each attempt belongs to one hold. |
-| Payment | Booking | `Payment (0..1) — Booking (0..1)` | The diagram associates a payment and a booking optionally at both ends; see review notes about mandatory payment. |
+| Payment | Booking | `Payment (1) — Booking (0..1)` | Every confirmed booking requires one successful initial payment. A payment attempt may exist without a confirmed booking. |
 | Guest | Booking | `Guest (1) — Booking (0..*)` | A guest can place multiple bookings; each booking belongs to one guest. |
 | Room | Booking | `Room (1) — Booking (0..*)` | A room may be booked for different stays; each booking reserves one room. |
 | Booking | Cancellation | `Booking (1) — Cancellation (0..1)` | A booking may have one cancellation; each cancellation refers to one booking. |
