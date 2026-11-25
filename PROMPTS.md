@@ -41,7 +41,25 @@ Copy this block for each entry:
 
 ## Lab 2
 
+### 2026-11-25 – ChatGPT – Class Diagram Revision
+**Goal:** Review and revise the Lab 2 domain/design class diagram for completeness and consistency with the requirements.
 
+**Prompt:**
+> Review my Lab 2 class diagram against our Lab 1 functional requirements and the reference application domain. Check for missing attributes, incorrect multiplicities, unclear association names, and violations of object-oriented design principles, and suggest specific improvements.
+
+**Kept / changed / rejected, and why:**
+> Kept the AI suggestions for adding missing multiplicities, refining association directions, and separating tightly coupled responsibilities. Rejected changes that introduced unnecessary classes or implementation details beyond the scope of the Lab 2 model.
+
+---
+
+### 2026-11-25 – ChatGPT – Reference Application Revision (Lab 2)
+**Goal:** Audit and revise our implementation and analysis of the Lab 2 reference application.
+
+**Prompt:**
+> Revise my work on the Lab 2 reference application. Check whether our findings for the domain model are consistent with the code and our own domain model. Check for missing attributes. 
+
+**Kept / changed / rejected, and why:**
+> Used the feedback to fix mismatched method signatures, add missing input validations, and align the code behavior with the updated class diagram. 
 
 ## Lab 3
 
