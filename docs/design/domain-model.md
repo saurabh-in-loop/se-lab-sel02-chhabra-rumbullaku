@@ -87,3 +87,6 @@ Save the diagram as docs/design/domain-model.png.
 | A recorded cancellation refers to one booking and may result in at most one refund under this simplified model. | Cancellation / Refund |
 
 
+## Peer Review
+
+We presented our domain model and sequence diagram to our partner team during Lab 2. No issues or suggestions for improvement were raised by the reviewing team. Therefore, no changes were necessary after the peer review.
